@@ -28,7 +28,7 @@ func main() {
 
 	flag.StringVar(&cfg.StratumPort, "stratum", cfg.StratumPort, "stratum port to listen on, default `:5555`")
 	flag.BoolVar(&cfg.PrintStats, "stats", cfg.PrintStats, "true to show periodic stats to console, default `true`")
-	flag.StringVar(&cfg.RPCServer, "kaspa", cfg.RPCServer, "address of the kaspad node, default `localhost:16110`")
+	flag.StringVar(&cfg.RPCServer, "node", cfg.RPCServer, "address of the node, default `localhost:16110`")
 	flag.DurationVar(&cfg.BlockWaitTime, "blockwait", cfg.BlockWaitTime, "time in ms to wait before manually requesting new block, default `3s`")
 	flag.UintVar(&cfg.MinShareDiff, "mindiff", cfg.MinShareDiff, "minimum share difficulty to accept from miner(s), default `4096`")
 	flag.BoolVar(&cfg.ClampPow2, "pow2clamp", cfg.ClampPow2, "true to limit diff to powers of 2, required for IceRiver/Bitmain ASICs, default `true`")
