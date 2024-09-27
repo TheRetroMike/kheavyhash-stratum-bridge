@@ -32,6 +32,7 @@ type BridgeConfig struct {
 	VarDiffStats    bool          `yaml:"var_diff_stats"`
 	ExtranonceSize  uint          `yaml:"extranonce_size"`
 	ClampPow2       bool          `yaml:"pow2_clamp"`
+	Chain	 	string        `yaml:"chain"`
 }
 
 func configureZap(cfg BridgeConfig) (*zap.SugaredLogger, func()) {
