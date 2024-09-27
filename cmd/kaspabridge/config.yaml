@@ -83,7 +83,3 @@ log_to_file: true
 # `curl http://localhost:{prom_port}/metrics`
 # Note `:PORT` format is needed if not specifiying a specific ip range 
 prom_port: :2114
-
-chainL: kaspa
-
-
