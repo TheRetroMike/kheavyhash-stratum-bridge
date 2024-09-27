@@ -1,8 +1,8 @@
 FROM golang:1.19.1 as builder
 
-LABEL org.opencontainers.image.description="Dockerized Kaspa Stratum Bridge"      
-LABEL org.opencontainers.image.authors="onemorebsmith"  
-LABEL org.opencontainers.image.source="https://github.com/onemorebsmith/kaspa-stratum-bridge"
+LABEL org.opencontainers.image.description="Dockerized kHeavyHash Stratum Bridge"      
+LABEL org.opencontainers.image.authors="theretromike"  
+LABEL org.opencontainers.image.source="https://github.com/TheRetroMike/kheavyhash-stratum-bridge"
               
 WORKDIR /go/src/app
 ADD go.mod .
