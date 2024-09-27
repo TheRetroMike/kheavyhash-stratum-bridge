@@ -7,7 +7,7 @@ stratum_port: :5555
 # For a list of public nodes, run `nslookup mainnet-dnsseed.daglabs-dev.com` 
 # uncomment for to use a public node
 # kaspad_address: 46.17.104.200:16110
-kaspad_address: localhost:16110
+node_address: localhost:16110
 
 # min_share_diff: only accept shares of the specified difficulty (or higher) 
 # from the miner(s).  Higher values will reduce the number of shares submitted, 
@@ -21,14 +21,14 @@ kaspad_address: localhost:16110
 # If you don't want to change the default to match your device(s), the vardiff 
 # engine will adjust to an appropriate diff for lower hashrate devices within a 
 # few minutes.
-min_share_diff: 4096
+min_share_diff: 64
 
 # pow2_clamp: restrict difficulty to 2^n (e.g. 64, 128, 256, etc). This is 
 # required for IceRiver and BitMain ASICs, where difficulties further away from
 # powers of 2 cause higher error rates.  Using this feature will limit the 
 # functionality of vardiff, such that the shares_per_min becomes more of a 
 # minimum, rather than a target we can expect to converge on.
-pow2_clamp: false
+pow2_clamp: true
 
 # var_diff: if true, enables the auto-adjusting variable share diff mechanism. 
 # Starts with the value defined by the 'min_share_diff' setting, then checks 
@@ -75,7 +75,7 @@ extranonce_size: 0
 print_stats: true
 
 # log_to_file: if true logs will be written to a file local to the executable
-log_to_file: true
+log_to_file: false
 
 # prom_port: if specified, prometheus will serve stats on the port provided
 # see readme for summary on how to get prom up and running using docker
