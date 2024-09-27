@@ -84,4 +84,6 @@ log_to_file: true
 # Note `:PORT` format is needed if not specifiying a specific ip range 
 prom_port: :2114
 
+chainL: kaspa
+
 
