@@ -51,12 +51,12 @@ func (ks *KaspaApi) startStatsThread(ctx context.Context) {
 		case <-ticker.C:
 			dagResponse, err := ks.kaspad.GetBlockDAGInfo()
 			if err != nil {
-				ks.logger.Warn("failed to get network hashrate from kaspa, prom stats will be out of date", zap.Error(err))
+				ks.logger.Warn("failed to get network hashrate from node, prom stats will be out of date", zap.Error(err))
 				continue
 			}
 			response, err := ks.kaspad.EstimateNetworkHashesPerSecond(dagResponse.TipHashes[0], 1000)
 			if err != nil {
-				ks.logger.Warn("failed to get network hashrate from kaspa, prom stats will be out of date", zap.Error(err))
+				ks.logger.Warn("failed to get network hashrate from node, prom stats will be out of date", zap.Error(err))
 				continue
 			}
 			RecordNetworkStats(response.NetworkHashesPerSecond, dagResponse.BlockCount, dagResponse.Difficulty)
@@ -79,21 +79,21 @@ func (ks *KaspaApi) reconnect() error {
 
 func (s *KaspaApi) waitForSync(verbose bool) error {
 	if verbose {
-		s.logger.Info("checking kaspad sync state")
+		s.logger.Info("checking node sync state")
 	}
 	for {
 		clientInfo, err := s.kaspad.GetInfo()
 		if err != nil {
-			return errors.Wrapf(err, "error fetching server info from kaspad @ %s", s.address)
+			return errors.Wrapf(err, "error fetching server info from node @ %s", s.address)
 		}
 		if clientInfo.IsSynced {
 			break
 		}
-		s.logger.Warn("Kaspa is not synced, waiting for sync before starting bridge")
+		s.logger.Warn("Node is not synced, waiting for sync before starting bridge")
 		time.Sleep(5 * time.Second)
 	}
 	if verbose {
-		s.logger.Info("kaspad synced, starting server")
+		s.logger.Info("node synced, starting server")
 	}
 	return nil
 }
@@ -104,9 +104,9 @@ func (s *KaspaApi) startBlockTemplateListener(ctx context.Context, blockReadyCb 
 	ticker := time.NewTicker(s.blockWaitTime)
 	for {
 		if err := s.waitForSync(false); err != nil {
-			s.logger.Error("error checking kaspad sync state, attempting reconnect: ", err)
+			s.logger.Error("error checking node sync state, attempting reconnect: ", err)
 			if err := s.reconnect(); err != nil {
-				s.logger.Error("error reconnecting to kaspad, waiting before retry: ", err)
+				s.logger.Error("error reconnecting to node, waiting before retry: ", err)
 				time.Sleep(5 * time.Second)
 			}
 			restartChannel = true
@@ -117,7 +117,7 @@ func (s *KaspaApi) startBlockTemplateListener(ctx context.Context, blockReadyCb 
 				blockReadyChan <- true
 			})
 			if err != nil {
-				s.logger.Error("fatal: failed to register for block notifications from kaspa")
+				s.logger.Error("fatal: failed to register for block notifications from node")
 			} else {
 				restartChannel = false
 			}
@@ -140,7 +140,7 @@ func (ks *KaspaApi) GetBlockTemplate(
 	template, err := ks.kaspad.GetBlockTemplate(client.WalletAddr,
 		fmt.Sprintf(`'%s' via onemorebsmith/kaspa-stratum-bridge_%s`, client.RemoteApp, version))
 	if err != nil {
-		return nil, errors.Wrap(err, "failed fetching new block template from kaspa")
+		return nil, errors.Wrap(err, "failed fetching new block template from node")
 	}
 	return template, nil
 }
