@@ -350,7 +350,7 @@ func (sh *shareHandler) startStatsThread() error {
 		str += "\n-------------------------------------------------------------------------------\n"
 		str += fmt.Sprintf("                | %14.14s | %14.14s | %12d | %11s",
 			rateStr, ratioStr, sh.overall.BlocksFound.Load(), time.Since(start).Round(time.Second))
-		str += "\n========================================================== ks_bridge_" + version + " ===\n"
+		str += "\n========================================================== rmt_kHeavyHash_bridge_" + version + " ===\n"
 		// sh.statsLock.Unlock()
 		log.Println(str)
 	}
@@ -477,7 +477,7 @@ func (sh *shareHandler) startVardiffThread(expectedShareRate uint, logStats bool
 		}
 		sort.Strings(statsLines)
 		stats += strings.Join(statsLines, "\n")
-		stats += "\n\n========================================================== ks_bridge_" + version + " ===\n"
+		stats += "\n\n========================================================== rmt_kHeavyHash_bridge_" + version + " ===\n"
 		stats += "\n" + strings.Join(toleranceErrs, "\n") + "\n\n"
 		if logStats {
 			bws.Write([]byte(stats))
