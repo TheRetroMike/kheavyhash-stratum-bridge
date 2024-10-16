@@ -155,5 +155,6 @@ func CleanWallet(in string) (string, error) {
 	if walletRegex.MatchString(in) {
 		return in[0:67], nil
 	}
-	return "", errors.New("unable to coerce wallet to valid address")
+
+	return "", errors.New(fmt.Sprintf("unable to coerce wallet to valid address %s", in)
 }
