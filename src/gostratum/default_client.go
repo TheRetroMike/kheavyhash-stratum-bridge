@@ -156,5 +156,5 @@ func CleanWallet(in string) (string, error) {
 		return in[0:67], nil
 	}
 
-	return "", errors.New(fmt.Sprintf("unable to coerce wallet to valid address %s", in)
+	return "", errors.New(fmt.Sprintf("unable to coerce wallet to valid address %s", in))
 }
